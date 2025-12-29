@@ -33,7 +33,8 @@ interface Item {
       <option value="Guernica">Guernica</option>
       <option value="Central Glew">Central Glew</option>
       <option value="Frezzer">Frezzer</option>
-      <option value="Otro">Otro</option>
+      <option value="chino_glew">Chino Glew</option>
+      <option value="otro">Otro</option>
     </select>
   </div>
   <!-- ESTADO -->
@@ -47,6 +48,8 @@ interface Item {
       <option value="envio">Envio</option>
       <option value="ingreso">Ingreso</option>
       <option value="final">Final</option>
+      <option value="descomposicion">Devolucion</option>
+      <option value="venta">Venta</option>
     </select>
   </div>
 
@@ -66,7 +69,7 @@ interface Item {
   <!-- ITEMS -->
   @for (item of itemsFormArray.controls; track $index) {
     <div [formGroup]="item" class="space-y-1 flex justify-between">
-      <label class="font-bold font-mono px-3" >{{item.get('name')?.value}}</label>
+      <label class="font-bold px-3" >{{item.get('name')?.value}}</label>
       <input type="number" formControlName="peso" class="mx-3 bg-amber-50 rounded-lg text-center dark:text-black">
     </div>
   }

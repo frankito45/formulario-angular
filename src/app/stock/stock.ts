@@ -8,24 +8,7 @@ import { DataService } from '../data-service';
   standalone: true,
   imports: [],
   template: `
-<p>stock works!</p>
-
-@if (stocks.isLoading()) {
-  <p>Cargando...</p>
-}
-
-@for (fecha of fechas(); track fecha) {
-  <h3>{{ fecha }}</h3>
-
-  @for (item of groupedByDate()[fecha]; track $index) {
-    <div style="border: 1px solid black; margin: 10px; padding: 10px;">
-      @for (key of objectKeys(item); track key) {
-        <p>{{ key }}: {{ item[key] }}</p>
-      }
-    </div>
-  }
-}
-
+<p>solo los administradores tienen acceso a esta sección</p>
     `,
   styles: '',
 })
