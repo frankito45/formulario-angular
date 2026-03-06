@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../data-service';
+import { finalize } from 'rxjs/operators';
 
 interface Item {
   name: string;
@@ -75,13 +76,25 @@ interface Item {
   }
 
   <div class="flex justify-end pt-2" >
-    <button type="submit" class="hover:border-b-indigo-600 border-b-2 rounded-xs px-3 ">  Enviar  </button>
+    <button type="submit"
+ class="hover:border-b-indigo-600 border-b-2 rounded-xs px-3 flex items-center gap-2"
+ [disabled]="carga()">
+ 
+ @if(carga()){
+  <span class="animate-spin h-4 w-4 border-2 border-gray-300 border-t-indigo-600 rounded-full"></span>
+ }
+
+ {{ carga() ? 'Enviando...' : 'Enviar' }}
+
+</button>
   </div>
 </form>
 `,
   styles: ``,
 })
 export class Formulario {
+  carga = signal(false)
+
 
   ITEMS_POR_GRUPO: Record<string, Item[]> = {
     pollo: [
@@ -169,16 +182,25 @@ export class Formulario {
     item: itemsValidos
   };
 
+  
   console.log('Payload a enviar:', payload);
+  
+  // carga de datos
+  this.carga.set(true);
 
-  this.dataServise.postData(payload).subscribe({
+  this.dataServise.postData(payload).pipe(
+    finalize(() => this.carga.set(false)
+  )).subscribe({
     next: res => {
       console.log('Guardado correctamente:', res);
       this.formulario.reset();
       this.itemsFormArray.clear();
       this.setFechaActual();
     },
+
     error: err => console.error('Error al guardar:', err)
+
+    
   });
 }
 
