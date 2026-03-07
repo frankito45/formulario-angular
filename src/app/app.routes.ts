@@ -4,7 +4,7 @@ import { Formulario } from './formulario/formulario';
 
 export const routes: Routes = [
     {
-        path: 'stock',
+        path: 'informes',
         component: Stock,
     },
     {
