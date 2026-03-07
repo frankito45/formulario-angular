@@ -25,10 +25,13 @@ export class DataService {
     return this.http.get<Stocks[]>(this.apiUrl);
   }
 
+
   // GET por ID
   getById(id: number) {
     return this.http.get<Stocks>(`${this.apiUrl}/${id}`);
   }
+ 
+  
 
   // GET por grupo
   getByGroup(grupo: string) {
